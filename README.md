@@ -1,1 +1,2 @@
-all examples are from http://schemaform.io/examples/bootstrap-example.html and one is from https://github.com/saburab/angular-schema-form-nwp-file-upload.
+Example is of https://github.com/nervgh/angular-file-upload
+and just run live-server from root folder.
