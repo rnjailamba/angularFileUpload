@@ -1,0 +1,223 @@
+<md-dialog aria-label="Autocomplete Dialog Example" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Autocomplete Dialog Example</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="ctrl.cancel()" aria-label="Shut">
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+
+    <md-tabs md-dynamic-height>
+      <md-tab label="one">
+        <md-content class="md-padding">
+          <div class="md-dialog-content">
+            <form ng-submit="$event.preventDefault()">
+              <p>Use <code>md-autocomplete</code> to search for matches from local or remote data sources.
+                <md-tooltip ng-if="ctrl.showTooltip" md-visible="ctrl.showTooltip" md-direction="left">
+                  You have NOT entered something from the list.
+                </md-tooltip>
+              </p>
+              <md-autocomplete
+                  md-selected-item="ctrl.selectedItem"
+                  md-search-text="ctrl.searchText"
+                  md-items="item in ctrl.querySearch(ctrl.searchText)"
+                  md-item-text="item.display"
+                  md-min-length="0"
+                  placeholder="What is your favorite US state?">
+                <md-item-template>
+                  <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                </md-item-template >
+                <md-not-found>
+                  No states matching "{{ctrl.searchText}}" were found.
+                </md-not-found>
+              </md-autocomplete>
+
+
+              <div ng-controller="SelectOptGroupController" class="md-padding" ng-cloak>
+                <div>
+                  <h1 class="md-title">Select category and subcategory below
+                    <md-tooltip ng-if="ctrl.showTooltip1" md-visible="ctrl.showTooltip1" md-direction="left">
+                      Please select from both dropdowns
+                    </md-tooltip>
+
+                  </h1>
+                  <div layout="row">
+                    <md-input-container>
+                      <label>Size Again</label>
+                      <md-select ng-model="size1" ng-change="selectChanged1()">
+                        <md-optgroup label="Sizes">
+                          <md-option ng-value="size.category" ng-repeat="size in sizes1 | filter: {name: selectedToppings } | unique:'category'">{{size.category}}</md-option>
+                        </md-optgroup>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container>
+                      <label>Topping</label>
+                      <md-select ng-model="selectedToppings" ng-change="selectChanged2()">
+                        <md-optgroup label="Subcategory">
+                          <md-option ng-value="topping.name" ng-repeat="topping in toppings | filter: {category: size1 }">{{topping.name}}</md-option>
+                        </md-optgroup>
+                      </md-select>
+                    </md-input-container>
+
+
+
+                  </div>
+                    <p ng-if="selectedToppings">You ordered a {{size1.toLowerCase()}} pizza with
+                      {{selectedToppings.toLowerCase()}}.</p>
+                  </div>
+                  <div layout="row">
+                    <md-button ng-click="clearValue()" ng-disabled="!size1 && !selectedToppings" style="margin-right: 20px;">Clear</md-button>
+                  </div>
+              </div>
+
+      <!--         <div layout="row" id="toastBounds">
+                  <br/>
+                  <br/>
+                  <br/>
+              </div>   -->
+
+            </form>
+          </div>
+        </md-content>
+      </md-tab>
+
+      <md-tab label="two">
+        <md-content class="md-padding">
+          <div ng-controller="FormController">
+              <form sf-schema="schema" sf-form="form" sf-model="model"></form>
+          </div>
+        </md-content>
+      </md-tab>
+
+      <md-tab label="three">
+        <md-content class="md-padding">
+          <div ng-controller="FormController1">
+              <form name="myForm"
+                    sf-schema="schema"
+                    sf-form="form"
+                    sf-model="model"
+                    ng-submit="onSubmit(myForm)"></form>
+          </div>
+        </md-content>
+      </md-tab>
+
+      <md-tab label="Simple">
+        <md-content class="md-padding has-feedback">
+          <div ng-controller="FormController2">
+              <form name="myForm"
+                    sf-schema="schema"
+                    sf-form="form"
+                    sf-model="model"
+                    ng-submit="onSubmit(myForm)"></form>
+          </div>
+        </md-content>
+      </md-tab>
+
+      <md-tab label="BasicJson">
+        <md-content class="md-padding">
+
+          <div ng-controller="FormController3">
+              <form name="myForm1"
+                    sf-schema="schema"
+                    sf-form="form"
+                    sf-model="modell"
+                    ng-submit="onSubmit(myForm1)"></form>
+              <div ng-show="myForm1.$valid" class=""><em>Form is valid</em></div>
+              <div ng-show="myForm1.$invalid" class="ng-hide"><em>Form is not valid</em></div>
+              <pre >{{modell}}</pre>
+              <pre >{{modell['string']}}</pre>
+          </div>
+        </md-content>
+      </md-tab>
+
+      <md-tab label="BootstrapGrid">
+        <md-content class="md-padding">
+
+          <div ng-controller="FormController4">
+              <form name="myForm4"
+                    sf-schema="schema"
+                    sf-form="form"
+                    sf-model="model4"
+                    ng-submit="onSubmit(myForm4)"></form>
+              <div ng-show="myForm4.$valid" class=""><em>Form is valid</em></div>
+              <div ng-show="myForm4.$invalid" class="ng-hide"><em>Form is not valid</em></div>
+              <pre >{{model4}}</pre>
+          </div>
+        </md-content>
+      </md-tab>
+
+      <md-tab label="RadioCheck">
+        <md-content class="md-padding">
+
+          <div ng-controller="FormController5">
+              <form name="myForm5"
+                    sf-schema="schema"
+                    sf-form="form"
+                    sf-model="model5"
+                    ng-submit="onSubmit(myForm5)"></form>
+              <div ng-show="myForm5.$valid" class=""><em>Form is valid</em></div>
+              <div ng-show="myForm5.$invalid" class="ng-hide"><em>Form is not valid</em></div>
+              <pre >{{model5}}</pre>
+          </div>
+        </md-content>
+      </md-tab>
+
+      <md-tab label="DateSelect">
+        <md-content class="md-padding">
+
+          <div ng-controller="FormController6">
+              <form name="myForm6"
+                    sf-schema="schema"
+                    sf-form="form"
+                    sf-model="model6"
+                    ng-submit="onSubmit(myForm6)"></form>
+              <div ng-show="myForm6.$valid" class=""><em>Form is valid</em></div>
+              <div ng-show="myForm6.$invalid" class="ng-hide"><em>Form is not valid</em></div>
+              <pre >{{model6}}</pre>
+          </div>
+        </md-content>
+      </md-tab>
+
+      <md-tab label="FileUpload">
+        <md-content class="md-padding">
+
+          <div ng-controller="FormController7">
+              <form name="myForm7"
+                    sf-schema="schema"
+                    sf-form="form"
+                    sf-model="model7"
+                    ng-submit="onSubmit(myForm7)"></form>
+              <div ng-show="myForm7.$valid" class=""><em>Form is valid</em></div>
+              <div ng-show="myForm7.$invalid" class="ng-hide"><em>Form is not valid</em></div>
+              <pre >{{model7}}</pre>
+          </div>
+        </md-content>
+      </md-tab>
+
+
+    </md-tabs>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button aria-label="Finished"  ng-click="ctrl.finish($event)">Finished
+
+    </md-button>
+  </md-dialog-actions>
+
+  <md-dialog-actions>
+        <div layout="row" id="toastBounds1">
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+        </div>
+  </md-dialog-actions>
+
+
+
+
+</md-dialog>
