@@ -9,7 +9,12 @@ angular
 
     .controller('AppController', ['$scope', 'FileUploader', function($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
-            url: 'upload.php'
+            url: "https://cementifyblogimages.s3-ap-southeast-1.amazonaws.com/1464061376758.jpg?AWSAccessKeyId=AKIAJ2QOR4DTCUFS6NFQ&Content-Type=image%3Bcharset%3DUTF-8&Expires=1470061376&Signature=elnB0JVQrW2ANB67MdY%2F%2BmrgOOA%3D&x-amz-acl=public-read",
+            queueLimit:2,
+            autoUpload:true,
+            method:"put",
+            disableMultipart: true,
+            headers: {'Content-Type': 'image;charset=UTF-8'}
         });
 
         // FILTERS
@@ -18,6 +23,7 @@ angular
             name: 'imageFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                console.log(type);
                 return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
             }
         });
